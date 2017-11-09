@@ -34,6 +34,25 @@ export default class Shader {
             }
         }
 
+        if(this.options.useWebcam) {
+            navigator.webkitGetUserMedia({ video: true },
+              function(stream) {
+                var videoUrl = window.URL.createObjectURL(stream);
+
+                //TODO: This is how it should work:
+                //this.canvas.setUniform('u_webcam', videoUrl);
+
+                //This is what works without modifying GlslCanvas
+                var video = document.createElement('video');
+                video.src = videoUrl;
+                this.canvas.loadTexture('u_webcam', video, { filtering: 'nearest'} );
+            }.bind(this),
+              function() {
+                console.error("Could not get webcam");
+              }
+            );
+        }
+
         // Media Capture
         this.media_capture = new MediaCapture();
         this.media_capture.setCanvas(this.el_canvas);
@@ -133,9 +152,9 @@ export default class Shader {
         if (main.menu) {
             this.el.style.top = (main.menu.el.clientHeight || main.menu.el.offsetHeight || main.menu.el.scrollHeight) + "px";
         }
-    
+
         // Add all this to the main container
-        main.container.appendChild(this.el);    
+        main.container.appendChild(this.el);
         glslcanvas.resize();
     }
 
