@@ -46,6 +46,7 @@ export default class Shader {
                 var video = document.createElement('video');
                 video.src = videoUrl;
                 this.canvas.loadTexture('u_webcam', video, { filtering: 'nearest'} );
+                this.canvas.uniformTexture('u_webcam');
             }.bind(this),
               function() {
                 console.error("Could not get webcam");
