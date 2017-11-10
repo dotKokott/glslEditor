@@ -205,7 +205,7 @@ export default class GlslEditor {
         else {
             this.new();
         }
-
+/* COMMENTED OUT FOR WORKSHOP
         if (this.options.menu || this.options.exportIcon) {
             // setup CrossStorage client
             this.storage = new CrossStorageClient('https://openframe.io/hub.html');
@@ -213,7 +213,7 @@ export default class GlslEditor {
                 console.log("Connected to OpenFrame [o]")
             }.bind(this));
         }
-        
+*/        
         return this;
     }
 
